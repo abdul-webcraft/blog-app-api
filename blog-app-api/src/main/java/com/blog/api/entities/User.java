@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -44,4 +46,8 @@ public class User {
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Comment> comments=new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user",referencedColumnName = "userId"),inverseJoinColumns = @JoinColumn(name = "role",referencedColumnName = "roleId"))
+    private Set<Role> roles=new HashSet<>();
 }
